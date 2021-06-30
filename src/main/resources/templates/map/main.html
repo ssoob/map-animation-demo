@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>지도1</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/default.css">
+<!--    <script src="js/main.js"></script>-->
+
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+<!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c80ecd247f361281226e3b7b43442ada"></script>-->
+</head>
+
+
+<body>
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map" style="width:100%;height:640px;"></div>
+
+    <script>
+        // var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        //     mapOption = {
+        //         center: new kakao.maps.LatLng(37.561004, 126.986076), // 지도의 중심좌표
+        //         level: 5 // 지도의 확대 레벨
+        //     };
+        //
+        // // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        // var map = new kakao.maps.Map(mapContainer, mapOption);
+        //
+        //
+        // // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        // var mapTypeControl = new kakao.maps.MapTypeControl();
+        // // 지도 타입 컨트롤을 지도에 표시합니다
+        // map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        //
+        //
+        //
+        // // 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+        // function zoomIn() {
+        //     map.setLevel(map.getLevel() - 1);
+        // }
+        // // 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+        // function zoomOut() {
+        //     map.setLevel(map.getLevel() + 1);
+        // }
+        //
+        //
+        // /**
+        //  * API 호출
+        //  * @param theUrl
+        //  * @returns {string}
+        //  */
+        // function httpGet(theUrl) {
+        //     var xmlHttp = new XMLHttpRequest();
+        //     xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        //     xmlHttp.send(null);
+        //     return xmlHttp.responseText;
+        // }
+        //
+        // /**
+        //  * 데이터 가져오기
+        //  */
+        // function getData() {
+        //     var contentStg = httpGet('https://ftsstg-bmw.sktelecom.com/fts/pois?version=1&searchKeyword=삼성&appKey=hhds46ht-ou0h-i8bl-f84x-3u1puu6v6lqy');
+        //
+        //     var searchPoiInfo = JSON.parse(contentStg);
+        //     if (searchPoiInfo.searchPoiInfo != {}) {
+        //         var pois = searchPoiInfo.searchPoiInfo.pois;
+        //         if (pois.poi != {}) {
+        //             for (var i = 0; i < pois.poi.length; i++) {
+        //                 console.log(pois.poi[i]);
+        //                 var name = pois.poi[i].name;
+        //                 var point = {};
+        //                 point.lat = pois.poi[i].noorLat;
+        //                 point.lon = pois.poi[i].noorLon;
+        //
+        //                 drawMarker(point, name);
+        //             }
+        //         } else {
+        //             console.log('not exsit pois:' + pois);
+        //         }
+        //
+        //     } else {
+        //         console.log('not exsit searchPoiInfo:' + searchPoiInfo);
+        //     }
+        // }
+        //
+        //
+        // /**
+        //  * 마커 표시
+        //  * @param point
+        //  * @param name
+        //  */
+        // function drawMarker(point, name) {
+        //
+        //     // 마커 이미지
+        //     // (추후) 2~3초 주기로 DB에서 차량 상태 조회 후 refresh
+        //     var imgSrc = '/image/free-icon-pin-787433.png',
+        //         imgSize = new kakao.maps.Size(40,40),
+        //         imgOption = {offset: new kakao.maps.Point(20,30)};
+        //     var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption);
+        //
+        //     // 마커가 표시될 위치입니다
+        //     var markerPosition = new kakao.maps.LatLng(point.lat, point.lon);
+        //
+        //     // 마커를 생성합니다
+        //     var marker = new kakao.maps.Marker({
+        //         position: markerPosition,
+        //         image: markerImage
+        //     });
+        //     // 마커가 지도 위에 표시되도록 설정합니다
+        //     marker.setMap(map);
+        //
+        //
+        //     // 마커에 표시할 오버레이
+        //     var content = '<ul class="info">';
+        //         content += '    <li>';
+        //         content += '        <span class="label">name </span>' + name ;
+        //         content += '    </li>';
+        //         content += '    <li>';
+        //         content += '        <span class="label">lon </span>' + point.lon;
+        //         content += '    </li>';
+        //         content += '    <li>';
+        //         content += '        <span class="label">lat</span>' + point.lat;
+        //         content += '    </li>';
+        //         content += '</ul>';
+        //     var infoOverlay = new kakao.maps.CustomOverlay({
+        //         content: content, // 표시할 내용입니다
+        //         position: markerPosition, // 표시할 위치입니다.
+        //         xAnchor: 0,
+        //         yAnchor: 0,
+        //         zIndex: 1
+        //     });
+        //     // 마우스오버시 마커에 오버레이가 표시됩니다.
+        //     kakao.maps.event.addListener(marker, 'mouseover', function () {
+        //         infoOverlay.setMap(map);
+        //     });
+        //     // 마우스아웃시 마커에 오버레이가 제거됩니다.
+        //     kakao.maps.event.addListener(marker, 'mouseout', function () {
+        //         infoOverlay.setMap(null);
+        //     });
+        // }
+        //
+        // /**
+        //  * 현재 위치로 이동
+        //  */
+        // function goCurrentPoint() {
+        //
+        // }
+        //
+        // /**
+        //  * 차량 종류별 아이콘으로 표시 전환
+        //  */
+        // function changeDevice(type) {
+        //
+        // }
+        //
+        //
+        // getData();
+
+
+        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11'
+        });
+
+
+    </script>
+
+    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+    <div class="custom_zoomcontrol radius_border">
+        <span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>
+        <span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
+    </div>
+</body>
+</html>
